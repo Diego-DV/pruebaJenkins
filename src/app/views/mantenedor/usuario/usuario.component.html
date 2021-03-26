@@ -1,0 +1,133 @@
+<div fxLayout="row">
+  <h1 class="mat-h2">Crear usuario</h1>
+</div>
+
+<form class="example-form" #f="ngForm" (ngSubmit)="f.form.valid && agregar()">
+  <div fxLayout="row">
+    <mat-form-field appearance="fill">
+      <mat-label>RUT</mat-label>
+      <input
+        type="text"
+        name="rut"
+        id="rut"
+        matInput
+        maxlength="10"
+        placeholder="12345678-9"
+        [(ngModel)]="rutInput"
+        required
+      />
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row">
+    <mat-form-field style="margin-right: 10px" appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input
+        type="text"
+        name="nombre"
+        id="nombre"
+        matInput
+        maxlength="20"
+        placeholder="Juan"
+        [(ngModel)]="nombreInput"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Apellido</mat-label>
+      <input
+        type="text"
+        name="apellido"
+        id="apellido"
+        matInput
+        maxlength="20"
+        placeholder="Perez"
+        [(ngModel)]="apellidoInput"
+        required
+      />
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row">
+    <mat-radio-group aria-label="Select an option">
+      <label>Sexo: </label>
+      <input
+        type="radio"
+        id="masculino"
+        name="gender"
+        value="masculino"
+        [(ngModel)]="generoInput"
+        required
+      />
+      <label for="masculino">Masculino</label>
+      <input
+        type="radio"
+        id="femenino"
+        name="gender"
+        value="femenino"
+        [(ngModel)]="generoInput"
+      />
+      <label for="femenino">Femenino</label>
+    </mat-radio-group>
+  </div>
+
+  <div fxLayout="row">
+    <mat-form-field appearance="fill">
+      <mat-label>Estado</mat-label>
+      <select
+        name="estado"
+        id="estado"
+        matNativeControl
+        [(ngModel)]="estadoInput"
+        required
+      >
+        <option value="activo">Activo</option>
+        <option value="bloqueado">Bloqueado</option>
+      </select>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row">
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha nacimiento</mat-label>
+      <input
+        name="fechaNacimiento"
+        id="fechaNacimiento"
+        matInput
+        [max]="maxDate"
+        [matDatepicker]="picker"
+        [(ngModel)]="fechaNacimientoInput"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <button type="submit" mat-raised-button color="primary">Crear</button>
+</form>
+<br />
+
+<div fxLayout="row">
+  <table class="mat-elevation-z8">
+    <tr>
+      <th>index</th>
+      <th>Rut</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Género</th>
+      <th>Estado</th>
+      <th>Fecha Nacimiento</th>
+    </tr>
+    <tr *ngFor="let item of usuarios; let indice=index">
+      <td> {{indice+1}} 
+        <td>{{item.rut}}</td>
+        <td>{{item.nombre}}</td>
+        <td>{{item.apellido}}</td>
+        <td>{{item.genero}}</td>
+        <td>{{item.estado}}</td>
+        <td>{{item.fechaNacimiento | date: "dd/MM/yyyy"}}</td>
+        <td><button mat-raised-button color="warn" (click)="eliminar(indice)">Delete</button></td>
+      </tr>
+    </table> 
+</div>
